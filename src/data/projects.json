@@ -1,0 +1,58 @@
+{
+  "en": [
+    {
+      "id": "sistbienes",
+      "tag": "Featured Project",
+      "title": "SistBienes - Asset Management System",
+      "description": "Comprehensive municipal asset management platform with real-time tracking, maintenance scheduling, and detailed reporting capabilities.",
+      "tech": ["React", "TypeScript", "Node.js", "PostgreSQL"],
+      "icon": "monitoring",
+      "image": "SistBienes.webp",
+      "frontendUrl": "https://github.com/Bit9-A/SistBienes-Frontend",
+      "backendUrl": "https://github.com/Bit9-A/SistBienes-Backend",
+      "featured": true,
+      "category": "fullstack"
+    },
+    {
+      "id": "befit",
+      "tag": "AI Wellness App",
+      "title": "BeFit - Holistic AI Wellness Companion",
+      "description": "Intelligent cross-platform wellness application transforming lifestyles through AI-powered fitness, nutrition, and mental health features. Includes personalized workouts, AI fridge analysis for meal planning, mental wellness chat, and gamification with XP levels and daily missions.",
+      "tech": ["React Native", "Expo", "Node.js", "Gemini AI", "Supabase"],
+      "icon": "fitness_center",
+      "image": "befit.webp",
+      "demoUrl": "https://github.com/Bit9-A/BeFit",
+      "featured": true,
+      "category": "fullstack"
+    }
+  ],
+  "es": [
+    {
+      "id": "sistbienes",
+      "tag": "Proyecto Destacado",
+      "title": "SistBienes - Sistema de Gestión de Activos",
+      "description": "Plataforma integral de gestión de activos municipales con seguimiento en tiempo real, programación de mantenimiento y capacidades de informes detallados.",
+      "tech": ["React", "TypeScript", "Node.js", "PostgreSQL"],
+      "icon": "monitoring",
+      "image": "SistBienes.webp",
+      "frontendUrl": "https://github.com/Bit9-A/SistBienes-Frontend",
+      "backendUrl": "https://github.com/Bit9-A/SistBienes-Backend",
+      "featured": true,
+      "category": "fullstack"
+    },
+    {
+      "id": "befit",
+      "tag": "App de Bienestar IA",
+      "title": "BeFit - Compañero Holístico de Bienestar IA",
+      "description": "Aplicación inteligente multiplataforma que transforma estilos de vida mediante funciones de fitness, nutrición y salud mental impulsadas por IA. Incluye entrenamientos personalizados, análisis de nevera con IA para planificación de comidas, chat de bienestar mental y gamificación con niveles XP y misiones diarias.",
+      "tech": ["React Native", "Expo", "Node.js", "Gemini AI", "Supabase"],
+      "icon": "fitness_center",
+      "image": "befit.webp",
+      "frontendUrl": "https://github.com/Bit9-A/BeFit",
+      "backendUrl": "https://github.com/Bit9-A/BeFit/tree/master/backend",
+      "demoUrl": "https://befit-app.netlify.app",
+      "featured": true,
+      "category": "fullstack"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+---
+const { t, lang } = Astro.props;
+import ProjectCard from './ProjectCard.astro';
+import projectsData from '../data/projects.json';
+
+// Get projects for current language
+const projects = projectsData[lang as keyof typeof projectsData] || projectsData.es;
+const featuredProjects = projects.filter(p => p.featured);
+---
+<section id="projects" class="py-12 relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-20">
+  <div class="flex flex-col gap-2 mb-12">
+    <div class="flex items-center gap-3">
+      <span class="h-px w-12 bg-linear-to-r from-primary to-transparent"></span>
+      <h2 class="text-primary font-bold tracking-wider uppercase text-sm">{
+      t('proj.title')}</h2>
+    </div>
+    <h3 class="text-3xl md:text-5xl font-black text-white tracking-tight">{lang === 'es' ? t('proj.subtitle') : t('proj.title')} <span class="text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-400">{ lang ==="es" ? t(  'proj.title'): t('proj.subtitle')}</span></h3>
+  </div>
+
+  <!-- Featured Projects Carousel -->
+  <div class="relative mb-16">
+    <!-- Carousel Container -->
+    <div class="carousel-container relative overflow-hidden">
+      <div class="carousel-track flex transition-transform duration-500 ease-out">
+        {featuredProjects.map((project, index) => (
+          <ProjectCard project={project} index={index} />
+        ))}
+      </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="flex items-center justify-center gap-6 mt-8">
+      <!-- Previous Button -->
+      <button 
+        id="prev-btn" 
+        class="carousel-btn w-12 h-12 rounded-full border border-white/10 bg-white/5 hover:bg-primary hover:border-primary transition-all duration-300 flex items-center justify-center group"
+        aria-label="Previous project"
+      >
+        <span class="material-symbols-outlined text-slate-400 group-hover:text-background-dark transition-colors">chevron_left</span>
+      </button>
+
+      <!-- Indicators -->
+      <div class="flex gap-2">
+        {featuredProjects.map((_, index) => (
+          <button 
+            class="carousel-indicator w-2 h-2 rounded-full bg-slate-600 transition-all duration-300 hover:bg-primary"
+            data-index={index}
+            aria-label={`Go to project ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+
+      <!-- Next Button -->
+      <button 
+        id="next-btn" 
+        class="carousel-btn w-12 h-12 rounded-full border border-white/10 bg-white/5 hover:bg-primary hover:border-primary transition-all duration-300 flex items-center justify-center group"
+        aria-label="Next project"
+      >
+        <span class="material-symbols-outlined text-slate-400 group-hover:text-background-dark transition-colors">chevron_right</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.carousel-slide');
+  const track = document.querySelector('.carousel-track') as HTMLElement;
+  const indicators = document.querySelectorAll('.carousel-indicator');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const totalSlides = slides.length;
+
+  function updateCarousel() {
+    // Move track
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    // Update indicators
+    indicators.forEach((indicator, index) => {
+      if (index === currentSlide) {
+        indicator.classList.add('bg-primary', 'w-8');
+        indicator.classList.remove('bg-slate-600', 'w-2');
+      } else {
+        indicator.classList.remove('bg-primary', 'w-8');
+        indicator.classList.add('bg-slate-600', 'w-2');
+      }
+    });
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+  }
+
+  // Event listeners
+  nextBtn?.addEventListener('click', nextSlide);
+  prevBtn?.addEventListener('click', prevSlide);
+
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      currentSlide = index;
+      updateCarousel();
+    });
+  });
+
+  // Auto-play (optional)
+  let autoplayInterval = setInterval(nextSlide, 5000);
+
+  // Pause autoplay on hover
+  const carouselContainer = document.querySelector('.carousel-container');
+  carouselContainer?.addEventListener('mouseenter', () => {
+    clearInterval(autoplayInterval);
+  });
+
+  carouselContainer?.addEventListener('mouseleave', () => {
+    autoplayInterval = setInterval(nextSlide, 5000);
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') prevSlide();
+    if (e.key === 'ArrowRight') nextSlide();
+  });
+
+  // Initialize
+  updateCarousel();
+</script>

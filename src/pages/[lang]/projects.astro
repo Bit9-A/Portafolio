@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import ProjectArchive from '../../components/ProjectArchive.astro';
+import Footer from '../../components/Footer.astro';
+import { getLangFromUrl, useTranslations } from '../../utils/i18n';
+import '../../styles/global.css';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'es' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as any);
+---
+
+<Layout title="Projects Archive | Adrian Vergel">
+  <div class="fixed inset-0 z-0 bg-background-dark pointer-events-none">
+     <!-- Scanlines Overlay -->
+    <div class="scanlines opacity-5 absolute inset-0"></div>
+     <!-- Grid Overlay -->
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(100,252,242,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(100,252,242,0.03)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+  </div>
+
+  <div class="relative z-10 flex flex-col min-h-screen">
+    <Navbar lang={lang} t={t} />
+    
+    <main class="flex-1">
+      <ProjectArchive t={t} />
+    </main>
+
+    <Footer lang={lang} t={t} />
+  </div>
+</Layout>

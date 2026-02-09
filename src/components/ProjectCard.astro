@@ -1,0 +1,159 @@
+---
+interface Props {
+  project: {
+    id: string;
+    tag: string;
+    title: string;
+    description: string;
+    tech: string[];
+    icon: string;
+    image?: string;
+    frontendUrl?: string;
+    backendUrl?: string;
+    demoUrl?: string;
+  };
+  index: number;
+}
+
+
+
+const { project, index } = Astro.props;
+
+// Tech Icon Mapping
+const getTechIcon = (tech: string) => {
+  const normalized = tech.toLowerCase();
+  if (normalized.includes('react native')) return { type: 'svg', slug: 'react' };
+  if (normalized.includes('react')) return { type: 'svg', slug: 'react' };
+  if (normalized.includes('node')) return { type: 'svg', slug: 'nodedotjs' };
+  if (normalized.includes('typescript')) return { type: 'svg', slug: 'typescript' };
+  if (normalized.includes('postgres')) return { type: 'svg', slug: 'postgresql' };
+  if (normalized.includes('supabase')) return { type: 'svg', slug: 'supabase' };
+  if (normalized.includes('expo')) return { type: 'svg', slug: 'expo' };
+  if (normalized.includes('gemini') || normalized.includes('ai')) return { type: 'symbol', name: 'psychology' };
+  if (normalized.includes('express')) return { type: 'svg', slug: 'express' };
+  if (normalized.includes('redis')) return { type: 'svg', slug: 'redis' };
+  if (normalized.includes('mongodb')) return { type: 'svg', slug: 'mongodb' };
+  
+  return { type: 'symbol', name: 'code' }; // Default
+};
+
+// Import image using glob pattern
+const images = import.meta.glob<{ default: ImageMetadata }>('../assets/*.{png,jpg,jpeg,webp}', { eager: true });
+let projectImage = null;
+if (project.image) {
+  const imagePath = `../assets/${project.image}`;
+  projectImage = images[imagePath]?.default;
+}
+---
+
+<div class="carousel-slide min-w-full" data-slide={index}>
+  <div class="group relative w-full md:min-h-[600px] glass-panel rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-500 flex flex-col">
+    <!-- Glow effect behind card -->
+    <div class="absolute -inset-1 bg-linear-to-r from-primary to-blue-600 rounded-2xl blur opacity-10 group-hover:opacity-20 transition duration-1000 group-hover:duration-200"></div>
+    <div class="relative grid grid-cols-1 md:grid-cols-12 gap-8 p-6 lg:p-10 z-10 flex-1">
+      <!-- Content Side -->
+      <div class="md:col-span-5 flex flex-col justify-center gap-4 lg:gap-6 order-1">
+        <div>
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-2 lg:mb-4">
+            {project.tag}
+          </span>
+          <h4 class="text-2xl lg:text-3xl font-bold text-white mb-2 lg:mb-4 group-hover:text-primary transition-colors">{project.title}</h4>
+          <p class="text-slate-400 leading-relaxed text-sm lg:text-base">
+            {project.description}
+          </p>
+        </div>
+        <!-- Tech Stack -->
+        <div class="flex flex-wrap gap-2 lg:gap-3">
+          {project.tech.map((tech) => {
+            const icon = getTechIcon(tech);
+            return (
+              <div class="flex items-center gap-2 px-2 py-1 lg:px-3 lg:py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-primary/50 transition-colors cursor-default group/tech">
+                {icon.type === 'svg' ? (
+                  <img 
+                    src={`https://cdn.simpleicons.org/${icon.slug}/64EEFF`} 
+                    alt={tech}
+                    class="w-4 h-4 object-contain brightness-90 group-hover/tech:brightness-110 transition-all"
+                  />
+                ) : (
+                  <span class="material-symbols-outlined text-[16px] lg:text-[18px] text-primary">{icon.name}</span>
+                )}
+                <span class="text-[10px] lg:text-xs font-medium text-slate-300 group-hover/tech:text-white transition-colors">{tech}</span>
+              </div>
+            );
+          })}
+        </div>
+        <!-- Actions -->
+        <div class="flex items-center gap-3 lg:gap-4 pt-2 lg:pt-4 flex-wrap">
+          {project.demoUrl && (
+            <a 
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-primary text-background-dark font-bold rounded-lg hover:bg-white hover:shadow-neon transition-all duration-300 text-sm lg:text-base"
+            >
+              <span>Ver Demo</span>
+              <span class="material-symbols-outlined text-lg">arrow_outward</span>
+            </a>
+          )}
+          
+          {project.frontendUrl && (
+            <a 
+              href={project.frontendUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-white/5 border border-white/10 text-white font-medium rounded-lg hover:bg-primary hover:text-background-dark hover:border-primary transition-all duration-300 group/btn text-sm lg:text-base"
+            >
+              <svg class="w-4 h-4 lg:w-5 lg:h-5 text-primary group-hover/btn:text-background-dark transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              <span>{project.frontendUrl === project.backendUrl ? 'Código' : 'Frontend'}</span>
+            </a>
+          )}
+
+          {project.backendUrl && project.backendUrl !== project.frontendUrl && (
+            <a 
+              href={project.backendUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-white/5 border border-white/10 text-white font-medium rounded-lg hover:bg-primary hover:text-background-dark hover:border-primary transition-all duration-300 group/btn text-sm lg:text-base"
+            >
+              <svg class="w-4 h-4 lg:w-5 lg:h-5 text-primary group-hover/btn:text-background-dark transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              <span>Backend</span>
+            </a>
+          )}
+        </div>
+      </div>
+      <!-- Visual Side -->
+      <div class="md:col-span-7 relative min-h-[300px] md:min-h-[400px] flex items-center justify-center order-2 perspective-1000">
+        <!-- Floating Tech Icons Background -->
+        <div class="absolute top-10 right-10 z-20 animate-float bg-background-dark/80 backdrop-blur border border-primary/30 p-2 rounded-xl shadow-lg">
+          <span class="material-symbols-outlined text-3xl text-primary">speed</span>
+        </div>
+        <div class="absolute bottom-20 left-10 z-20 animate-float-delayed bg-background-dark/80 backdrop-blur border border-primary/30 p-2 rounded-xl shadow-lg">
+          <span class="material-symbols-outlined text-3xl text-primary">analytics</span>
+        </div>
+        <!-- The Mockup -->
+        <div class="tilt-card relative w-full h-[250px] md:h-full rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-slate-800 group-hover:shadow-neon transition-all duration-500">
+          <div class="h-8 bg-slate-900 border-b border-white/5 flex items-center px-4 gap-2">
+            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          </div>
+          <div class="w-full h-full bg-slate-900 flex items-center justify-center overflow-hidden">
+            {projectImage ? (
+              <img 
+                src={projectImage.src} 
+                alt={project.title}
+                class="w-full h-full object-contain" 
+              />
+            ) : (
+              <span class="material-symbols-outlined text-6xl text-primary/20">{project.icon}</span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

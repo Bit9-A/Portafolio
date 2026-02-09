@@ -1,0 +1,133 @@
+---
+import { getLangFromUrl, useTranslations } from '../utils/i18n';
+import ArchiveProjectCard from './ArchiveProjectCard.astro';
+import projectsData from '../data/projects.json';
+
+const { lang: propLang, t: propT } = Astro.props;
+const urlLang = getLangFromUrl(Astro.url);
+const lang = propLang || urlLang;
+const t = propT || useTranslations(lang as any);
+
+// Get projects for current language
+const projects = projectsData[lang as keyof typeof projectsData] || projectsData.es;
+---
+
+<section id="archive" class="relative py-20 px-6 lg:px-10 max-w-7xl mx-auto min-h-screen">
+  <!-- Header -->
+  <div class="mb-12 border-b border-white/10 pb-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="h-px w-8 bg-primary"></div>
+          <span class="text-primary text-xs font-mono tracking-widest">{t('archive.status')}</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">
+          {t('archive.title')}
+        </h1>
+      </div>
+      
+      <div class="font-mono text-right hidden md:block">
+        <div class="text-xs text-slate-500 mb-1">LAT: 34.0522 N</div>
+        <div class="text-xs text-slate-500">LONG: 118.2437 W</div>
+        <div class="text-xs text-green-500 mt-2 animate-pulse">NODE_STATUS: ACTIVE</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Controls -->
+  <div class="flex flex-wrap items-center gap-4 mb-10">
+    <button 
+      class="filter-btn active px-4 py-2 rounded border border-primary bg-primary/10 text-primary text-xs font-bold font-mono tracking-widest hover:bg-primary hover:text-black transition-all duration-300"
+      data-filter="all"
+    >
+      {t('archive.filter.all')}
+    </button>
+    <button 
+      class="filter-btn px-4 py-2 rounded border border-white/10 bg-white/5 text-slate-400 text-xs font-bold font-mono tracking-widest hover:border-primary/50 hover:text-white transition-all duration-300"
+      data-filter="frontend"
+    >
+      {t('archive.filter.frontend')}
+    </button>
+    <button 
+      class="filter-btn px-4 py-2 rounded border border-white/10 bg-white/5 text-slate-400 text-xs font-bold font-mono tracking-widest hover:border-primary/50 hover:text-white transition-all duration-300"
+      data-filter="backend"
+    >
+      {t('archive.filter.backend')}
+    </button>
+    <button 
+      class="filter-btn px-4 py-2 rounded border border-white/10 bg-white/5 text-slate-400 text-xs font-bold font-mono tracking-widest hover:border-primary/50 hover:text-white transition-all duration-300"
+      data-filter="fullstack"
+    >
+      {t('archive.filter.fullstack')}
+    </button>
+  </div>
+
+  <!-- Projects Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 min-h-[50vh]">
+    {projects.map((project, index) => (
+      <div class="project-item" data-category={project.category} style={`animation-delay: ${index * 100}ms`}>
+        <ArchiveProjectCard project={project} t={t as any} />
+      </div>
+    ))}
+  </div>
+
+  <!-- Footer Stats -->
+  <div class="mt-20 pt-8 border-t border-white/10 flex justify-between text-xs font-mono text-slate-600">
+    <span>{t('archive.total')}: <span class="text-white">{projects.length}</span></span>
+    <span>end_of_sequence</span>
+  </div>
+</section>
+
+<script>
+  // Simple filtering logic
+  const buttons = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.project-item');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active class from all buttons
+      buttons.forEach(b => {
+        b.classList.remove('active', 'border-primary', 'bg-primary/10', 'text-primary');
+        b.classList.add('border-white/10', 'bg-white/5', 'text-slate-400');
+      });
+
+      // Add active class to clicked button
+      btn.classList.add('active', 'border-primary', 'bg-primary/10', 'text-primary');
+      btn.classList.remove('border-white/10', 'bg-white/5', 'text-slate-400');
+
+      const filter = btn.getAttribute('data-filter');
+
+      items.forEach(item => {
+        const category = item.getAttribute('data-category');
+        const element = item as HTMLElement;
+
+        if (filter === 'all' || category === filter) {
+          element.style.display = 'block';
+          // Trigger animation
+          element.style.animation = 'none';
+          element.offsetHeight; /* trigger reflow */
+          element.style.animation = 'fadeInUp 0.5s ease-out forwards';
+        } else {
+           element.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .project-item {
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+</style>

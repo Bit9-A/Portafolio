@@ -1,0 +1,49 @@
+---
+import "../../styles/global.css";
+import Navbar from "../../components/Navbar.astro";
+import Hero from "../../components/Hero.astro";
+import Experience from "../../components/Experience.astro";
+import Projects from "../../components/Projects.astro";
+import Contact from "../../components/Contact.astro";
+import { useTranslations } from "../../utils/i18n";
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'es' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as any);
+---
+
+<html lang={lang} class="dark">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{lang === 'es' ? 'Adrian Vergel | Desarrollador Full Stack' : 'Adrian Vergel | Full Stack Developer'}</title>
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	</head>
+	<body class="bg-background-dark text-silver font-display selection:bg-primary selection:text-background-dark overflow-x-hidden">
+		<Navbar t={t} lang={lang} />
+        <main class="relative">
+            <!-- Global Background Ambient Glow -->
+            <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+                <div class="absolute top-[20%] left-[10%] w-96 h-96 bg-primary/5 rounded-full blur-[120px]"></div>
+                <div class="absolute bottom-[20%] right-[10%] w-125 h-125 bg-blue-900/10 rounded-full blur-[120px]"></div>
+            </div>
+
+            <Hero t={t} />
+            <Experience t={t} />
+            <Projects t={t} />
+            <Contact t={t} />
+        </main>
+	</body>
+</html>

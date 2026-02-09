@@ -1,0 +1,153 @@
+---
+interface Props {
+  project: {
+    id: string;
+    tag: string;
+    title: string;
+    description: string;
+    tech: string[];
+    icon: string;
+    image?: string;
+    frontendUrl?: string;
+    backendUrl?: string;
+    demoUrl?: string;
+  };
+  t: (key: string) => string;
+}
+
+const { project, t } = Astro.props;
+
+// Tech Icon Mapping (Same as ProjectCard but could be extracted to a utility)
+const getTechIcon = (tech: string) => {
+  const normalized = tech.toLowerCase();
+  
+  // Define the flexible union type for our icons
+  type IconType = { type: 'svg', slug: string } | { type: 'symbol', name: 'help' | 'psychology' | 'code' };
+
+  const iconMap: Record<string, IconType> = {
+    'react native': { type: 'svg', slug: 'react' },
+    'react': { type: 'svg', slug: 'react' },
+    'node': { type: 'svg', slug: 'nodedotjs' },
+    'node.js': { type: 'svg', slug: 'nodedotjs' },
+    'typescript': { type: 'svg', slug: 'typescript' },
+    'postgres': { type: 'svg', slug: 'postgresql' },
+    'postgresql': { type: 'svg', slug: 'postgresql' },
+    'supabase': { type: 'svg', slug: 'supabase' },
+    'expo': { type: 'svg', slug: 'expo' },
+    'gemini': { type: 'symbol', name: 'psychology' },
+    'ai': { type: 'symbol', name: 'psychology' },
+    'express': { type: 'svg', slug: 'express' },
+    'express.js': { type: 'svg', slug: 'express' },
+    'redis': { type: 'svg', slug: 'redis' },
+    'mongodb': { type: 'svg', slug: 'mongodb' },
+    'next.js': { type: 'svg', slug: 'nextdotjs' },
+    'next': { type: 'svg', slug: 'nextdotjs' },
+    'tailwind': { type: 'svg', slug: 'tailwindcss' },
+    'tailwindcss': { type: 'svg', slug: 'tailwindcss' },
+    'docker': { type: 'svg', slug: 'docker' },
+    'graphql': { type: 'svg', slug: 'graphql' },
+    'aws': { type: 'svg', slug: 'amazonaws' },
+    'firebase': { type: 'svg', slug: 'firebase' },
+    'astro': { type: 'svg', slug: 'astro' },
+  };
+
+  for (const key in iconMap) {
+    if (normalized.includes(key)) return iconMap[key];
+  }
+  
+  return { type: 'symbol', name: 'code' } as IconType; // Default
+};
+
+// Import image using glob pattern
+const images = import.meta.glob<{ default: ImageMetadata }>('../assets/*.{png,jpg,jpeg,webp}', { eager: true });
+let projectImage = null;
+if (project.image) {
+  const imagePath = `../assets/${project.image}`;
+  projectImage = images[imagePath]?.default;
+}
+---
+
+<article class="group relative flex flex-col h-full bg-slate-900/30 border border-white/5 rounded-xl overflow-hidden hover:border-primary/50 hover:shadow-neon-soft transition-all duration-300">
+  <!-- Image/Icon Area -->
+  <div class="relative h-48 w-full bg-slate-900 border-b border-white/5 overflow-hidden flex items-center justify-center group-hover:bg-slate-800 transition-colors">
+     <!-- Hover Overlay -->
+     <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
+     
+     {projectImage ? (
+      <img 
+        src={projectImage.src} 
+        alt={project.title}
+        class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+      />
+    ) : (
+      <span class="material-symbols-outlined text-6xl text-slate-700 group-hover:text-primary/50 transition-colors">{project.icon || 'code'}</span>
+    )}
+
+    <!-- Tag Badge -->
+    <div class="absolute top-3 right-3 z-20">
+      <span class="px-2 py-1 bg-background-dark/80 backdrop-blur border border-white/10 rounded text-[10px] font-mono text-primary uppercase tracking-wider">
+        {project.tag}
+      </span>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="flex flex-col flex-1 p-5 gap-4">
+    <!-- Header -->
+    <div>
+      <h3 class="text-xl font-bold text-white group-hover:text-primary transition-colors line-clamp-1" title={project.title}>
+        {project.title}
+      </h3>
+      <div class="h-px w-8 bg-primary/30 mt-2 mb-3 group-hover:w-full transition-all duration-500"></div>
+      <p class="text-slate-400 text-sm leading-relaxed line-clamp-3">
+        {project.description}
+      </p>
+    </div>
+
+    <!-- Tech Stack -->
+    <div class="mt-auto">
+      <div class="flex flex-wrap gap-2 mb-4">
+        {project.tech.slice(0, 4).map((tech: string) => {
+          const icon = getTechIcon(tech);
+          return (
+            <div class="flex items-center gap-1.5 px-2 py-1 bg-white/5 rounded border border-white/5 text-[10px] text-slate-400 group-hover:border-primary/20 transition-colors" title={tech}>
+               {icon.type === 'svg' ? (
+                  <img src={`https://cdn.simpleicons.org/${icon.slug}/94a3b8`} alt={tech} class="w-3 h-3 opacity-70" />
+                ) : (
+                  <span class="material-symbols-outlined text-[12px] text-slate-500">{icon.name}</span>
+                )}
+              <span>{tech}</span>
+            </div>
+          );
+        })}
+        {project.tech.length > 4 && (
+          <span class="px-2 py-1 text-[10px] text-slate-500 bg-white/5 rounded border border-white/5">+{project.tech.length - 4}</span>
+        )}
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-3 pt-3 border-t border-white/5">
+        {project.demoUrl && (
+          <a 
+            href={project.demoUrl} 
+            target="_blank" 
+            class="flex-1 flex items-center justify-center gap-2 py-2 bg-primary/10 hover:bg-primary text-primary hover:text-background-dark border border-primary/20 hover:border-primary rounded text-xs font-bold uppercase tracking-wider transition-all duration-300"
+          >
+            DEMO
+            <span class="material-symbols-outlined text-sm">arrow_outward</span>
+          </a>
+        )}
+        {(project.frontendUrl || project.backendUrl) && (
+           <a 
+            href={project.frontendUrl || project.backendUrl} 
+            target="_blank" 
+            class="flex items-center justify-center w-10 h-9 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary/50 text-slate-400 hover:text-white rounded transition-all duration-300"
+            title="View Code"
+          >
+            <span class="material-symbols-outlined text-lg">code</span>
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</article>

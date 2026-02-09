@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #64fcf2;
+  --color-background-light: #f5f8f8;
+  --color-background-dark: #0b1111;
+  --color-surface-dark: #121a1a;
+  --color-border-dark: #273a38;
+  --color-silver: #c5c6c7;
+  --color-dark-gunmetal: #1f2833;
+
+  --font-display: "Inter", sans-serif;
+  --font-grotesk: "Space Grotesk", sans-serif;
+
+  --shadow-neon: 0 0 5px var(--color-primary), 0 0 20px var(--color-primary);
+  --shadow-neon-sm: 0 0 2px var(--color-primary), 0 0 10px var(--color-primary);
+
+  @keyframes pulse-slow {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  @keyframes typewriter {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  @keyframes blinkTextCursor {
+    from {
+      border-right-color: var(--color-primary);
+    }
+    to {
+      border-right-color: transparent;
+    }
+  }
+  @keyframes scanline {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 0% 100%;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  --animate-pulse-slow: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-typewriter:
+    typewriter 4s steps(40) 1s 1 normal both,
+    blinkTextCursor 500ms steps(40) infinite normal;
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-float-delayed: float 5s ease-in-out infinite 1s;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background-dark text-silver font-display;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0b0c10;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1f2833;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #45a29e;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    background: rgba(15, 18, 18, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .neon-text-glow {
+    text-shadow: 0 0 5px rgba(102, 252, 241, 0.5);
+  }
+
+  .scanlines {
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0) 50%,
+      rgba(0, 0, 0, 0.2) 50%,
+      rgba(0, 0, 0, 0.2)
+    );
+    background-size: 100% 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+}
+
+.tech-card:hover .tech-icon {
+  filter: drop-shadow(0 0 8px currentColor);
+  color: var(--brand-color);
+}
+.tech-card:hover {
+  border-color: var(--brand-color);
+  background: linear-gradient(
+    145deg,
+    rgba(22, 34, 34, 1) 0%,
+    rgba(var(--brand-rgb), 0.1) 100%
+  );
+}
+
+.tilt-card {
+  transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+  transition: transform 0.5s ease-out;
+}
+.group:hover .tilt-card {
+  transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02);
+}
