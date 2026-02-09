@@ -40,6 +40,7 @@ export const ui = {
     "stack.uptime": "UPTIME: 99.9%",
     "proj.title": "Featured",
     "proj.subtitle": "Projects",
+    "proj.viewAll": "VIEW_ALL_PROJECTS",
     "proj.featured.tag": "Full Stack",
     "proj.featured.title": "SistBienes - Asset Management System",
     "proj.featured.desc":
@@ -103,6 +104,7 @@ export const ui = {
     "stack.uptime": "TIEMPO: 99.9%",
     "proj.title": "Proyectos",
     "proj.subtitle": "Destacados",
+    "proj.viewAll": "VER_TODOS_LOS_PROYECTOS",
     "proj.featured.tag": "Full Stack",
     "proj.featured.title": "SistBienes - Sistema de Gestión de Activos",
     "proj.featured.desc":

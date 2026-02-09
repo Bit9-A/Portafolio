@@ -14,7 +14,7 @@ const featuredProjects = projects.filter(p => p.featured);
       <h2 class="text-primary font-bold tracking-wider uppercase text-sm">{
       t('proj.title')}</h2>
     </div>
-    <h3 class="text-3xl md:text-5xl font-black text-white tracking-tight">{lang === 'es' ? t('proj.subtitle') : t('proj.title')} <span class="text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-400">{ lang ==="es" ? t(  'proj.title'): t('proj.subtitle')}</span></h3>
+    <h3 class="text-3xl md:text-5xl font-black text-white tracking-tight">{lang === 'es' ? t('proj.subtitle') : t('proj.title')} <span class="text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-400">{ lang ==="es" ? t('proj.title'): t('proj.subtitle')}</span></h3>
   </div>
 
   <!-- Featured Projects Carousel -->
@@ -58,6 +58,17 @@ const featuredProjects = projects.filter(p => p.featured);
       >
         <span class="material-symbols-outlined text-slate-400 group-hover:text-background-dark transition-colors">chevron_right</span>
       </button>
+    </div>
+
+    <!-- View All Projects Button -->
+    <div class="flex justify-center mt-12 w-full">
+      <a 
+        href={`/${lang}/projects`} 
+        class="group relative inline-flex items-center gap-3 px-8 py-3 bg-transparent overflow-hidden rounded-full border border-primary/30 text-primary hover:text-background-dark font-bold tracking-widest uppercase text-xs transition-all duration-300 hover:border-primary hover:bg-primary hover:shadow-[0_0_20px_rgba(100,252,242,0.4)]"
+      >
+        <span class="relative z-10">{t('proj.viewAll')}</span>
+        <span class="material-symbols-outlined text-lg relative z-10 transition-transform group-hover:translate-x-1">arrow_forward</span>
+      </a>
     </div>
   </div>
 </section>
