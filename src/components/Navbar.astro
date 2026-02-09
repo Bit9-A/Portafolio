@@ -14,8 +14,8 @@ const t = propT || useTranslations(lang as any);
     <nav class="flex items-center gap-8" aria-label="Navegación principal">
       <a class="nav-link text-slate-400 hover:text-primary transition-colors text-sm font-medium tracking-widest" href={`/${lang}`} aria-label={t('nav.home')}>{t('nav.home')}</a>
       <a class="nav-link text-slate-400 hover:text-primary transition-colors text-sm font-medium tracking-widest" href={`/${lang}/projects`} aria-label={t('nav.projects')}>{t('nav.projects')}</a>
-      <a class="nav-link text-slate-400 hover:text-primary transition-colors text-sm font-medium tracking-widest" href="#experience" data-section="experience" aria-label={t('nav.experience')}>{t('nav.experience')}</a>
-      <a class="nav-link text-slate-400 hover:text-primary transition-colors text-sm font-medium tracking-widest" href="#contact" data-section="contact" aria-label={t('nav.contact')}>{t('nav.contact')}</a>
+      <a class="nav-link text-slate-400 hover:text-primary transition-colors text-sm font-medium tracking-widest" href={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? "#experience" : `/${lang}/#experience`} data-section="experience" aria-label={t('nav.experience')}>{t('nav.experience')}</a>
+      <a class="nav-link text-slate-400 hover:text-primary transition-colors text-sm font-medium tracking-widest" href={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? "#contact" : `/${lang}/#contact`} data-section="contact" aria-label={t('nav.contact')}>{t('nav.contact')}</a>
     </nav>
     
     <!-- Language Switcher - Improved -->
