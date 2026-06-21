@@ -24,6 +24,29 @@
       "demoUrl": "https://github.com/Bit9-A/BeFit",
       "featured": true,
       "category": "fullstack"
+    },
+    {
+      "id": "sistema-gestion-social",
+      "tag": "Featured Project",
+      "title": "Sistema de Gestión Social",
+      "description": "Comprehensive social management platform for handling citizen procedures, socioeconomic records, field inspections, credit management, and official document generation with digital signatures and QR codes. Features RBAC authentication and real-time dashboards.",
+      "tech": ["React", "TypeScript", "Node.js", "PostgreSQL", "Prisma", "Tailwind"],
+      "icon": "account_balance",
+      "frontendUrl": "https://github.com/Bit9-A/SGS",
+      "backendUrl": "https://github.com/Bit9-A/SGS",
+      "featured": true,
+      "category": "fullstack"
+    },
+    {
+      "id": "docflow",
+      "tag": "Open Source",
+      "title": "DocFlow - Visual Document Design Engine",
+      "description": "Block-based visual document design engine with drag-and-drop editor and programmatic PDF generation. Uses a portable JSON AST format for designing once and rendering across multiple formats. Features dynamic tables, variable interpolation, automatic headers/footers, and WCAG 2.1 AA accessible design.",
+      "tech": ["Next.js", "TypeScript", "Node.js", "Tailwind", "Zustand", "PDFKit"],
+      "icon": "description",
+      "frontendUrl": "https://github.com/Bit9-A/DocFlow",
+      "featured": true,
+      "category": "fullstack"
     }
   ],
   "es": [
@@ -51,6 +74,29 @@
       "frontendUrl": "https://github.com/Bit9-A/BeFit",
       "backendUrl": "https://github.com/Bit9-A/BeFit/tree/master/backend",
       "demoUrl": "https://befit-app.netlify.app",
+      "featured": true,
+      "category": "fullstack"
+    },
+    {
+      "id": "sistema-gestion-social",
+      "tag": "Proyecto Destacado",
+      "title": "Sistema de Gestión Social",
+      "description": "Plataforma integral de gestión de trámites sociales con expedientes digitales, fichas socioeconómicas, inspecciones de campo, control de créditos y generación de documentos oficiales con firma digital y códigos QR. Incluye autenticación RBAC y dashboards en tiempo real.",
+      "tech": ["React", "TypeScript", "Node.js", "PostgreSQL", "Prisma", "Tailwind"],
+      "icon": "account_balance",
+      "frontendUrl": "https://github.com/Bit9-A/SGS",
+      "backendUrl": "https://github.com/Bit9-A/SGS",
+      "featured": true,
+      "category": "fullstack"
+    },
+    {
+      "id": "docflow",
+      "tag": "Código Abierto",
+      "title": "DocFlow - Motor de Diseño Visual de Documentos",
+      "description": "Motor de diseño visual de documentos basado en bloques con editor drag-and-drop y generación programática de PDFs. Utiliza un formato JSON AST portable para diseñar una vez y renderizar en múltiples formatos. Incluye tablas dinámicas, interpolación de variables, encabezados/pies de página automáticos y diseño accesible WCAG 2.1 AA.",
+      "tech": ["Next.js", "TypeScript", "Node.js", "Tailwind", "Zustand", "PDFKit"],
+      "icon": "description",
+      "frontendUrl": "https://github.com/Bit9-A/DocFlow",
       "featured": true,
       "category": "fullstack"
     }
