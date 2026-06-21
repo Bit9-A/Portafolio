@@ -45,6 +45,7 @@
       "tech": ["Next.js", "TypeScript", "Node.js", "Tailwind", "Zustand", "PDFKit"],
       "icon": "description",
       "frontendUrl": "https://github.com/Bit9-A/DocFlow",
+      "demoUrl": "https://doc-flow-web-builderz.vercel.app",
       "featured": true,
       "category": "fullstack"
     }
@@ -97,6 +98,7 @@
       "tech": ["Next.js", "TypeScript", "Node.js", "Tailwind", "Zustand", "PDFKit"],
       "icon": "description",
       "frontendUrl": "https://github.com/Bit9-A/DocFlow",
+      "demoUrl": "https://doc-flow-web-builderz.vercel.app",
       "featured": true,
       "category": "fullstack"
     }
