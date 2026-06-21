@@ -8,8 +8,12 @@ const t = propT || useTranslations(lang);
 
 <footer class="py-8 bg-background-dark border-t border-white/5 mt-auto relative z-10 w-full">
     <div class="max-w-7xl mx-auto px-6 lg:px-20 text-center">
-        <div class="text-slate-600 text-sm font-medium">
+        <div class="text-slate-400 text-sm font-medium">
             © <span id="footer-year">{new Date().getFullYear()}</span> Adrian Vergel. {t('footer.built')}
         </div>
     </div>
 </footer>
+
+<script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+</script>

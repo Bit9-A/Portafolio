@@ -74,6 +74,44 @@
   body {
     @apply bg-background-dark text-silver font-display;
   }
+  /* Skip link - visible on focus */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    z-index: 1000;
+    padding: 8px 16px;
+    background: #64fcf2;
+    color: #0b1111;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 0 0 4px 0;
+    transition: top 0.1s;
+  }
+  .skip-link:focus-visible {
+    top: 0;
+  }
+  /* Visible focus rings for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid #64fcf2;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  /* Remove focus ring for mouse users */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
   ::-webkit-scrollbar {
     width: 8px;
   }

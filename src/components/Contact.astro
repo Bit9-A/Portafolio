@@ -29,19 +29,19 @@ const { t } = Astro.props;
             </a>
             
             <!-- Email -->
-            <div class="relative group flex flex-col items-center gap-2 cursor-pointer" id="copy-email">
-                <div class="absolute -top-12 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-primary text-black text-xs font-bold rounded opacity-0 group-hover:opacity-80 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-neon z-50">
+            <button class="relative group flex flex-col items-center gap-2" id="copy-email" aria-label={t('contact.copy')}>
+                <div class="absolute -top-12 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-primary text-black text-xs font-bold rounded opacity-0 group-hover:opacity-80 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-neon z-50" aria-hidden="true">
                     <span class="tooltip-text" data-copy={t('contact.copy')} data-copied={t('contact.copied')}>{t('contact.copy')}</span>
                     <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-primary rotate-45"></div>
                 </div>
                 <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-primary/80 group-hover:text-black group-hover:scale-110 group-hover:shadow-neon transition-all duration-300 active:scale-95">
-                    <span class="material-symbols-outlined text-4xl">mail</span>
+                    <span class="material-symbols-outlined text-4xl" aria-hidden="true">mail</span>
                 </div>
                 <span class="text-xs font-medium text-slate-500 group-hover:text-primary transition-colors uppercase tracking-widest font-mono">Email</span>
-            </div>
+            </button>
         </div>
 
-        <div class="mt-16 text-slate-600 text-sm font-medium">
+        <div class="mt-16 text-slate-400 text-sm font-medium">
             © <span id="year"></span> Adrian Vergel. {t('footer.built')}
         </div>
     </div>

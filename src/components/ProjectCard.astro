@@ -1,5 +1,6 @@
 ---
 interface Props {
+  lang: string;
   project: {
     id: string;
     tag: string;
@@ -17,7 +18,7 @@ interface Props {
 
 
 
-const { project, index } = Astro.props;
+const { project, index, lang = 'en' } = Astro.props;
 
 // Tech Icon Mapping
 const getTechIcon = (tech: string) => {
@@ -46,7 +47,7 @@ if (project.image) {
 }
 ---
 
-<div class="carousel-slide min-w-full" data-slide={index}>
+<div class="carousel-slide min-w-full" data-slide={index} role="group" aria-roledescription="slide" aria-label={lang === 'es' ? `Proyecto ${index + 1}` : `Project ${index + 1}`}>
   <div class="group relative w-full md:min-h-[600px] glass-panel rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-500 flex flex-col">
     <!-- Glow effect behind card -->
     <div class="absolute -inset-1 bg-linear-to-r from-primary to-blue-600 rounded-2xl blur opacity-10 group-hover:opacity-20 transition duration-1000 group-hover:duration-200"></div>
@@ -75,7 +76,7 @@ if (project.image) {
                     class="w-4 h-4 object-contain brightness-90 group-hover/tech:brightness-110 transition-all"
                   />
                 ) : (
-                  <span class="material-symbols-outlined text-[16px] lg:text-[18px] text-primary">{icon.name}</span>
+                  <span class="material-symbols-outlined text-[16px] lg:text-[18px] text-primary" aria-hidden="true">{icon.name}</span>
                 )}
                 <span class="text-[10px] lg:text-xs font-medium text-slate-300 group-hover/tech:text-white transition-colors">{tech}</span>
               </div>
@@ -92,7 +93,7 @@ if (project.image) {
               class="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-primary text-background-dark font-bold rounded-lg hover:bg-white hover:shadow-neon transition-all duration-300 text-sm lg:text-base"
             >
               <span>Ver Demo</span>
-              <span class="material-symbols-outlined text-lg">arrow_outward</span>
+              <span class="material-symbols-outlined text-lg" aria-hidden="true">arrow_outward</span>
             </a>
           )}
           
@@ -129,10 +130,10 @@ if (project.image) {
       <div class="md:col-span-7 relative min-h-[300px] md:min-h-[400px] flex items-center justify-center order-2 perspective-1000">
         <!-- Floating Tech Icons Background -->
         <div class="absolute top-10 right-10 z-20 animate-float bg-background-dark/80 backdrop-blur border border-primary/30 p-2 rounded-xl shadow-lg">
-          <span class="material-symbols-outlined text-3xl text-primary">speed</span>
+          <span class="material-symbols-outlined text-3xl text-primary" aria-hidden="true">speed</span>
         </div>
         <div class="absolute bottom-20 left-10 z-20 animate-float-delayed bg-background-dark/80 backdrop-blur border border-primary/30 p-2 rounded-xl shadow-lg">
-          <span class="material-symbols-outlined text-3xl text-primary">analytics</span>
+          <span class="material-symbols-outlined text-3xl text-primary" aria-hidden="true">analytics</span>
         </div>
         <!-- The Mockup -->
         <div class="tilt-card relative w-full h-[250px] md:h-full rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-slate-800 group-hover:shadow-neon transition-all duration-500">
@@ -149,7 +150,7 @@ if (project.image) {
                 class="w-full h-full object-contain" 
               />
             ) : (
-              <span class="material-symbols-outlined text-6xl text-primary/20">{project.icon}</span>
+              <span class="material-symbols-outlined text-6xl text-primary/20" aria-hidden="true">{project.icon}</span>
             )}
           </div>
         </div>

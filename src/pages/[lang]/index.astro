@@ -22,7 +22,7 @@ const t = useTranslations(lang as any);
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{lang === 'es' ? 'Adrian Vergel | Desarrollador Full Stack' : 'Adrian Vergel | Full Stack Developer'}</title>
         
@@ -32,8 +32,9 @@ const t = useTranslations(lang as any);
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	</head>
 	<body class="bg-background-dark text-silver font-display selection:bg-primary selection:text-background-dark overflow-x-hidden">
+		<a href="#main-content" class="skip-link">Skip to main content</a>
 		<Navbar t={t} lang={lang} />
-        <main class="relative">
+        <main id="main-content" class="relative">
             <!-- Global Background Ambient Glow -->
             <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
                 <div class="absolute top-[20%] left-[10%] w-96 h-96 bg-primary/5 rounded-full blur-[120px]"></div>

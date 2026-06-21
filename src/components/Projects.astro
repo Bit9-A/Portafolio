@@ -20,10 +20,10 @@ const featuredProjects = projects.filter(p => p.featured);
   <!-- Featured Projects Carousel -->
   <div class="relative mb-16">
     <!-- Carousel Container -->
-    <div class="carousel-container relative overflow-hidden">
-      <div class="carousel-track flex transition-transform duration-500 ease-out">
+    <div class="carousel-container relative overflow-hidden" role="region" aria-roledescription="carousel" aria-label={lang === 'es' ? 'Proyectos destacados' : 'Featured projects'}>
+      <div class="carousel-track flex transition-transform duration-500 ease-out" aria-live="polite">
         {featuredProjects.map((project, index) => (
-          <ProjectCard project={project} index={index} />
+          <ProjectCard project={project} index={index} lang={lang} />
         ))}
       </div>
     </div>
@@ -36,7 +36,7 @@ const featuredProjects = projects.filter(p => p.featured);
         class="carousel-btn w-12 h-12 rounded-full border border-white/10 bg-white/5 hover:bg-primary hover:border-primary transition-all duration-300 flex items-center justify-center group"
         aria-label="Previous project"
       >
-        <span class="material-symbols-outlined text-slate-400 group-hover:text-background-dark transition-colors">chevron_left</span>
+        <span class="material-symbols-outlined text-slate-400 group-hover:text-background-dark transition-colors" aria-hidden="true">chevron_left</span>
       </button>
 
       <!-- Indicators -->
@@ -56,7 +56,7 @@ const featuredProjects = projects.filter(p => p.featured);
         class="carousel-btn w-12 h-12 rounded-full border border-white/10 bg-white/5 hover:bg-primary hover:border-primary transition-all duration-300 flex items-center justify-center group"
         aria-label="Next project"
       >
-        <span class="material-symbols-outlined text-slate-400 group-hover:text-background-dark transition-colors">chevron_right</span>
+        <span class="material-symbols-outlined text-slate-400 group-hover:text-background-dark transition-colors" aria-hidden="true">chevron_right</span>
       </button>
     </div>
 
@@ -67,7 +67,7 @@ const featuredProjects = projects.filter(p => p.featured);
         class="group relative inline-flex items-center gap-3 px-8 py-3 bg-transparent overflow-hidden rounded-full border border-primary/30 text-primary hover:text-background-dark font-bold tracking-widest uppercase text-xs transition-all duration-300 hover:border-primary hover:bg-primary hover:shadow-[0_0_20px_rgba(100,252,242,0.4)]"
       >
         <span class="relative z-10">{t('proj.viewAll')}</span>
-        <span class="material-symbols-outlined text-lg relative z-10 transition-transform group-hover:translate-x-1">arrow_forward</span>
+        <span class="material-symbols-outlined text-lg relative z-10 transition-transform group-hover:translate-x-1" aria-hidden="true">arrow_forward</span>
       </a>
     </div>
   </div>

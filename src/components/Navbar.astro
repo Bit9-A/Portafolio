@@ -8,7 +8,7 @@ const t = propT || useTranslations(lang as any);
     <div class="size-6 text-primary animate-pulse">
       <span class="material-symbols-outlined">terminal</span>
     </div>
-    <h2 class="text-white text-lg font-bold leading-tight tracking-wider">ADRIAN_VERGEL<span class="text-primary animate-blink">_</span></h2>
+    <span class="text-white text-lg font-bold leading-tight tracking-wider" aria-label="Adrian Vergel">ADRIAN_VERGEL<span class="text-primary animate-blink" aria-hidden="true">_</span></span>
   </div>
   <div class="hidden md:flex flex-1 justify-end gap-8">
     <nav class="flex items-center gap-8" aria-label="Navegación principal">
@@ -23,8 +23,9 @@ const t = propT || useTranslations(lang as any);
       <a 
         href={lang === 'es' ? '/en' : '/es'} 
         class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:bg-primary/10 hover:border-primary transition-all duration-300 group"
+        aria-label={lang === 'es' ? 'Switch to English' : 'Cambiar a español'}
       >
-        <span class="material-symbols-outlined text-sm text-slate-500 group-hover:text-primary transition-colors">language</span>
+        <span class="material-symbols-outlined text-sm text-slate-500 group-hover:text-primary transition-colors" aria-hidden="true">language</span>
         <span class="text-xs font-mono text-slate-400 group-hover:text-primary transition-colors font-bold">
           {lang === 'es' ? 'EN' : 'ES'}
         </span>
@@ -42,14 +43,14 @@ const t = propT || useTranslations(lang as any);
     </a>
   </div>
   <!-- Mobile Menu Button -->
-  <button id="mobile-menu-btn" class="md:hidden text-white relative z-50 p-2" aria-label="Toggle navigation menu">
-    <span class="material-symbols-outlined text-3xl">menu</span>
+  <button id="mobile-menu-btn" class="md:hidden text-white relative z-50 p-2" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span class="material-symbols-outlined text-3xl" aria-hidden="true">menu</span>
   </button>
 
 </header>
 
 <!-- Mobile Menu Overlay -->
-<div id="mobile-menu" class="fixed inset-0 bg-[#0a0a0a]/98 backdrop-blur-2xl z-60 transform translate-x-full transition-transform duration-500 ease-out md:hidden flex flex-col justify-center items-center gap-10">
+<div id="mobile-menu" class="fixed inset-0 bg-[#0a0a0a]/98 backdrop-blur-2xl z-60 transform translate-x-full transition-transform duration-500 ease-out md:hidden flex flex-col justify-center items-center gap-10" role="dialog" aria-modal="true" aria-label="Navigation menu">
   <!-- Decorative background elements -->
   <div class="absolute inset-0 overflow-hidden pointer-events-none">
     <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
@@ -76,14 +77,15 @@ const t = propT || useTranslations(lang as any);
   <a 
     href={lang === 'es' ? '/en' : '/es'} 
     class="relative z-10 flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-slate-400 font-mono text-xs hover:text-primary hover:border-primary transition-all duration-300"
+    aria-label={lang === 'es' ? 'Switch to English' : 'Cambiar a español'}
   >
-    <span class="material-symbols-outlined text-lg">language</span>
+    <span class="material-symbols-outlined text-lg" aria-hidden="true">language</span>
     {lang === 'es' ? 'SWITCH TO ENGLISH' : 'CAMBIAR A ESPAÑOL'}
   </a>
 
   <!-- Close Button for Clarity -->
   <button id="close-menu-btn" class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors" aria-label="Close menu">
-    <span class="material-symbols-outlined text-4xl">close</span>
+    <span class="material-symbols-outlined text-4xl" aria-hidden="true">close</span>
   </button>
 </div>
 
@@ -99,12 +101,14 @@ const t = propT || useTranslations(lang as any);
     mobileMenu?.classList.remove('translate-x-full');
     document.body.style.overflow = 'hidden'; // Prevent scrolling
     if (menuIcon) menuIcon.textContent = 'close';
+    mobileMenuBtn?.setAttribute('aria-expanded', 'true');
   }
 
   function closeMenu() {
     mobileMenu?.classList.add('translate-x-full');
     document.body.style.overflow = ''; // Restore scrolling
     if (menuIcon) menuIcon.textContent = 'menu';
+    mobileMenuBtn?.setAttribute('aria-expanded', 'false');
   }
 
   function toggleMobileMenu() {

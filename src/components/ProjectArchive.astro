@@ -39,24 +39,28 @@ const projects = projectsData[lang as keyof typeof projectsData] || projectsData
     <button 
       class="filter-btn active px-4 py-2 rounded border border-primary bg-primary/10 text-primary text-xs font-bold font-mono tracking-widest hover:bg-primary hover:text-black transition-all duration-300"
       data-filter="all"
+      aria-pressed="true"
     >
       {t('archive.filter.all')}
     </button>
     <button 
       class="filter-btn px-4 py-2 rounded border border-white/10 bg-white/5 text-slate-400 text-xs font-bold font-mono tracking-widest hover:border-primary/50 hover:text-white transition-all duration-300"
       data-filter="frontend"
+      aria-pressed="false"
     >
       {t('archive.filter.frontend')}
     </button>
     <button 
       class="filter-btn px-4 py-2 rounded border border-white/10 bg-white/5 text-slate-400 text-xs font-bold font-mono tracking-widest hover:border-primary/50 hover:text-white transition-all duration-300"
       data-filter="backend"
+      aria-pressed="false"
     >
       {t('archive.filter.backend')}
     </button>
     <button 
       class="filter-btn px-4 py-2 rounded border border-white/10 bg-white/5 text-slate-400 text-xs font-bold font-mono tracking-widest hover:border-primary/50 hover:text-white transition-all duration-300"
       data-filter="fullstack"
+      aria-pressed="false"
     >
       {t('archive.filter.fullstack')}
     </button>
@@ -72,7 +76,7 @@ const projects = projectsData[lang as keyof typeof projectsData] || projectsData
   </div>
 
   <!-- Footer Stats -->
-  <div class="mt-20 pt-8 border-t border-white/10 flex justify-between text-xs font-mono text-slate-600">
+  <div class="mt-20 pt-8 border-t border-white/10 flex justify-between text-xs font-mono text-slate-400">
     <span>{t('archive.total')}: <span class="text-white">{projects.length}</span></span>
     <span>end_of_sequence</span>
   </div>
@@ -89,11 +93,13 @@ const projects = projectsData[lang as keyof typeof projectsData] || projectsData
       buttons.forEach(b => {
         b.classList.remove('active', 'border-primary', 'bg-primary/10', 'text-primary');
         b.classList.add('border-white/10', 'bg-white/5', 'text-slate-400');
+        b.setAttribute('aria-pressed', 'false');
       });
 
       // Add active class to clicked button
       btn.classList.add('active', 'border-primary', 'bg-primary/10', 'text-primary');
       btn.classList.remove('border-white/10', 'bg-white/5', 'text-slate-400');
+      btn.setAttribute('aria-pressed', 'true');
 
       const filter = btn.getAttribute('data-filter');
 
