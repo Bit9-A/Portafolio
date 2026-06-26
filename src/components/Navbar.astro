@@ -13,7 +13,7 @@ const t = propT || useTranslations(lang as any);
   <div class="hidden md:flex flex-1 justify-end gap-8">
     <nav class="flex items-center gap-8" aria-label="Navegación principal">
       <a class="nav-link text-slate-400 hover:text-primary transition-colors text-sm font-medium tracking-widest" href={`/${lang}`} aria-label={t('nav.home')}>{t('nav.home')}</a>
-      <a class="nav-link text-slate-400 hover:text-primary transition-colors text-sm font-medium tracking-widest" href={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? "#projects" : `/${lang}/#projects`} data-section="projects" aria-label={t('nav.projects')}>{t('nav.projects')}</a>
+      <a class="nav-link text-slate-400 hover:text-primary transition-colors text-sm font-medium tracking-widest" href={`/${lang}/projects`} aria-label={t('nav.projects')}>{t('nav.projects')}</a>
       <a class="nav-link text-slate-400 hover:text-primary transition-colors text-sm font-medium tracking-widest" href={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? "#experience" : `/${lang}/#experience`} data-section="experience" aria-label={t('nav.experience')}>{t('nav.experience')}</a>
       <a class="nav-link text-slate-400 hover:text-primary transition-colors text-sm font-medium tracking-widest" href={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? "#contact" : `/${lang}/#contact`} data-section="contact" aria-label={t('nav.contact')}>{t('nav.contact')}</a>
     </nav>
@@ -59,7 +59,7 @@ const t = propT || useTranslations(lang as any);
 
   <nav class="flex flex-col items-center gap-8 relative z-10 text-center">
     <a class="mobile-nav-link text-2xl font-bold tracking-widest text-slate-300 hover:text-primary transition-all duration-300 hover:scale-110" href={`/${lang}`} aria-label={t('nav.home')}>{t('nav.home')}</a>
-    <a class="mobile-nav-link text-2xl font-bold tracking-widest text-slate-300 hover:text-primary transition-all duration-300 hover:scale-110" href={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? "#projects" : `/${lang}/#projects`} aria-label={t('nav.projects')}>{t('nav.projects')}</a>
+    <a class="mobile-nav-link text-2xl font-bold tracking-widest text-slate-300 hover:text-primary transition-all duration-300 hover:scale-110" href={`/${lang}/projects`} aria-label={t('nav.projects')}>{t('nav.projects')}</a>
     <a class="mobile-nav-link text-2xl font-bold tracking-widest text-slate-300 hover:text-primary transition-all duration-300 hover:scale-110" href={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? "#experience" : `/${lang}/#experience`} aria-label={t('nav.experience')}>{t('nav.experience')}</a>
     <a class="mobile-nav-link text-2xl font-bold tracking-widest text-slate-300 hover:text-primary transition-all duration-300 hover:scale-110" href={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? "#contact" : `/${lang}/#contact`} aria-label={t('nav.contact')}>{t('nav.contact')}</a>
     
