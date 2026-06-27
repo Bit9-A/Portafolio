@@ -17,26 +17,112 @@ const featuredProjects = projects.filter(p => p.featured);
     <h3 class="text-3xl md:text-5xl font-black text-white tracking-tight">{lang === 'es' ? t('proj.subtitle') : t('proj.title')} <span class="text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-400">{ lang ==="es" ? t('proj.title'): t('proj.subtitle')}</span></h3>
   </div>
 
-  <!-- Featured Projects List -->
-  <div class="flex flex-col mb-12">
-    {featuredProjects.map((project, index) => (
-      <div class="group/project">
-        <ProjectCard project={project} index={index} lang={lang} />
-        {index < featuredProjects.length - 1 && (
-          <div class="my-10 lg:my-14 h-px bg-linear-to-r from-transparent via-primary/20 to-transparent" aria-hidden="true"></div>
-        )}
+  <!-- Featured Projects Carousel -->
+  <div class="relative mb-12">
+    <!-- Carousel Container -->
+    <div class="carousel-container relative overflow-hidden rounded-2xl" role="region" aria-roledescription="carousel" aria-label={lang === 'es' ? 'Proyectos destacados' : 'Featured projects'}>
+      <div class="carousel-track flex transition-transform duration-500 ease-out" aria-live="polite">
+        {featuredProjects.map((project, index) => (
+          <ProjectCard project={project} index={index} lang={lang} />
+        ))}
       </div>
-    ))}
-  </div>
+    </div>
 
-  <!-- View All Projects Button -->
-  <div class="flex justify-center w-full">
-    <a 
-      href={`/${lang}/projects`} 
-      class="group relative inline-flex items-center gap-3 px-8 py-3 bg-transparent overflow-hidden rounded-full border border-primary/30 text-primary hover:text-background-dark font-bold tracking-widest uppercase text-xs transition-all duration-300 hover:border-primary hover:bg-primary hover:shadow-[0_0_20px_rgba(100,252,242,0.4)]"
-    >
-      <span class="relative z-10">{t('proj.viewAll')}</span>
-      <span class="material-symbols-outlined text-lg relative z-10 transition-transform group-hover:translate-x-1" aria-hidden="true">arrow_forward</span>
-    </a>
+    <!-- Navigation Controls -->
+    <div class="flex items-center justify-center gap-6 mt-8">
+      <!-- Previous Button -->
+      <button 
+        id="prev-btn" 
+        class="carousel-btn w-12 h-12 rounded-full border border-white/10 bg-white/5 hover:bg-primary hover:border-primary transition-all duration-300 flex items-center justify-center group"
+        aria-label={lang === 'es' ? 'Proyecto anterior' : 'Previous project'}
+      >
+        <span class="material-symbols-outlined text-slate-400 group-hover:text-background-dark transition-colors" aria-hidden="true">chevron_left</span>
+      </button>
+
+      <!-- Indicators -->
+      <div class="flex gap-2">
+        {featuredProjects.map((_, index) => (
+          <button 
+            class="carousel-indicator w-2 h-2 rounded-full bg-slate-600 transition-all duration-300 hover:bg-primary"
+            data-index={index}
+            aria-label={lang === 'es' ? `Ir al proyecto ${index + 1}` : `Go to project ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+
+      <!-- Next Button -->
+      <button 
+        id="next-btn" 
+        class="carousel-btn w-12 h-12 rounded-full border border-white/10 bg-white/5 hover:bg-primary hover:border-primary transition-all duration-300 flex items-center justify-center group"
+        aria-label={lang === 'es' ? 'Siguiente proyecto' : 'Next project'}
+      >
+        <span class="material-symbols-outlined text-slate-400 group-hover:text-background-dark transition-colors" aria-hidden="true">chevron_right</span>
+      </button>
+    </div>
+
+    <!-- View All Projects Button -->
+    <div class="flex justify-center mt-12 w-full">
+      <a 
+        href={`/${lang}/projects`} 
+        class="group relative inline-flex items-center gap-3 px-8 py-3 bg-transparent overflow-hidden rounded-full border border-primary/30 text-primary hover:text-background-dark font-bold tracking-widest uppercase text-xs transition-all duration-300 hover:border-primary hover:bg-primary hover:shadow-[0_0_20px_rgba(100,252,242,0.4)]"
+      >
+        <span class="relative z-10">{t('proj.viewAll')}</span>
+        <span class="material-symbols-outlined text-lg relative z-10 transition-transform group-hover:translate-x-1" aria-hidden="true">arrow_forward</span>
+      </a>
+    </div>
   </div>
 </section>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.carousel-slide');
+  const track = document.querySelector('.carousel-track') as HTMLElement;
+  const indicators = document.querySelectorAll('.carousel-indicator');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const totalSlides = slides.length;
+
+  if (track && slides.length > 0) {
+    function updateCarousel() {
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      indicators.forEach((indicator, index) => {
+        if (index === currentSlide) {
+          indicator.classList.add('bg-primary', 'w-8');
+          indicator.classList.remove('bg-slate-600', 'w-2');
+        } else {
+          indicator.classList.remove('bg-primary', 'w-8');
+          indicator.classList.add('bg-slate-600', 'w-2');
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+
+    nextBtn?.addEventListener('click', nextSlide);
+    prevBtn?.addEventListener('click', prevSlide);
+
+    indicators.forEach((indicator) => {
+      indicator.addEventListener('click', () => {
+        const index = parseInt(indicator.getAttribute('data-index') || '0');
+        currentSlide = index;
+        updateCarousel();
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+    });
+
+    updateCarousel();
+  }
+</script>
