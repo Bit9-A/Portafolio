@@ -51,14 +51,14 @@
     },
     {
       "id": "mcp-clickup",
-      "tag": "Open Source",
+      "tag": "Open Source · npm Package",
       "title": "MCP ClickUp Server",
       "description": "A Model Context Protocol (MCP) server that connects ClickUp to AI coding tools — create tasks, browse workspaces, assign work, and manage your project workflow using natural language. Published on npm as mcp-clickup-server.",
       "tech": ["Node.js", "TypeScript", "MCP SDK", "ClickUp API"],
       "icon": "integration_instructions",
       "frontendUrl": "https://github.com/Bit9-A/MCP-CLICKUP",
       "demoUrl": "https://www.npmjs.com/package/mcp-clickup-server",
-      "featured": false,
+      "featured": true,
       "category": "backend"
     }
   ],
@@ -116,14 +116,14 @@
     },
     {
       "id": "mcp-clickup",
-      "tag": "Código Abierto",
+      "tag": "Código Abierto · npm",
       "title": "MCP ClickUp Server",
       "description": "Un servidor MCP (Model Context Protocol) que conecta ClickUp con herramientas de IA para programar — creá tareas, explorá workspaces, asigná trabajo y manejá tu flujo de proyecto usando lenguaje natural. Publicado en npm como mcp-clickup-server.",
       "tech": ["Node.js", "TypeScript", "MCP SDK", "ClickUp API"],
       "icon": "integration_instructions",
       "frontendUrl": "https://github.com/Bit9-A/MCP-CLICKUP",
       "demoUrl": "https://www.npmjs.com/package/mcp-clickup-server",
-      "featured": false,
+      "featured": true,
       "category": "backend"
     }
   ]

@@ -46,5 +46,19 @@ const t = useTranslations(lang as any);
             <Projects t={t} lang={lang} />
             <Contact t={t} />
         </main>
+
+        <!-- DevTools Easter Egg -->
+        <script>
+            const styles = [
+                'color: #64fcf2; font-size: 14px; font-weight: bold;',
+                'color: #c5c6c7; font-size: 12px;',
+                'color: #64fcf2; font-size: 12px;',
+                'color: #c5c6c7; font-size: 12px;',
+            ];
+            console.log('%c👋 Hey! Thanks for digging into the console.', styles[0]);
+            console.log('%cI’m Adrian — full-stack dev and this is my little corner of the web.', styles[1]);
+            console.log('%c📬 adrian24vergel@gmail.com', styles[2]);
+            console.log('%c⚡ Built with Astro + TailwindCSS. No frameworks, just vibes.', styles[3]);
+        </script>
 	</body>
 </html>

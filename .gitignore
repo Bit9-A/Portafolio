@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # opencode/gentle-ai local artifacts
 .atl/
+
+# engram export artifacts
+engram-export.json
